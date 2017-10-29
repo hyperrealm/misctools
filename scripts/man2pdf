@@ -1,0 +1,15 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+
+    x=`echo $1 | sed -e 's/\.[^\.]*$//' `
+
+    echo
+    echo "$1 -> $x.pdf"
+
+    groff -te -man -Tps $1 | \
+	gs -dNOPAUSE -DBATCH -sDEVICE=pdfwrite -sOutputFile=$x.pdf -
+
+    shift;
+
+done

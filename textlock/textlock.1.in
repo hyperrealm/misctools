@@ -1,0 +1,98 @@
+.TH textlock 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+textlock \- password-lock a terminal
+.SH SYNOPSIS
+\fBtextlock\fP [ \fB-h\fP ]
+
+\fBtlpasswd\fP
+.SH AVAILABILITY
+This program will not run on an ASCII terminal which is smaller than 40
+columns by 15 rows. 
+.SH DESCRIPTION
+The \fBtextlock\fP utility locks an ASCII terminal until the user who
+invoked it enters their password at the keyboard. While the terminal
+is locked, a clock is displayed at random locations on the screen. If
+a key is pressed, the program displays a dialog box in which the user
+is expected to enter their password. If an invalid password is
+entered, or if no input is received after a certain amount of time,
+the program reverts back to the clock display. The program cannot be
+interrupted with any of the keyboard-generated interrupts (for
+example, control-C, break, control-Z, and control-Y).
+
+By default, the user's system password will unlock the
+display. However, the user may specify an alternate password to use
+for unlocking the display by running the \fBtlpasswd\fP program. This
+program asks for a new password and stores an encrypted version of the
+password in the file \fI.textlock\fP in the user's home
+directory. \fBtextlock\fP reverts to verifying against the user's
+system password only if the \fI.textlock\fP file does not exist.
+.SH OPTIONS
+Without any options, \fBtextlock\fP immediately locks the screen. With
+the \fI-h\fP option, it displays usage and credits
+information.
+
+Several key commands are available in the password editing box. These are
+summarized below (`^' denotes the `CONTROL' key).
+.TP 5
+.B Backspace, Delete, or Left-Arrow
+Any of these keys will delete the character to the left of the cursor.
+.TP 5
+.B ^U or Clear-Line
+These keys will clear the entire editing line and reposition the cursor at
+the beginning.
+.TP 5
+.B ^L or Refresh
+These keys will cause the entire screen to be refreshed. This option is
+useful if a password entry is interrupted by a broadcast message.
+.TP 5
+.B Return or Enter
+These keys will accept the current entry.
+.TP 5
+.B Space-Bar
+This key will abort the input and return to the clock display.
+.TP 5
+.B ^T
+This is an escape code that specifies that the following keycode
+should be treated literally. This is useful for entering passwords
+that contain embedded control characters. Any character may be entered
+after a ^T, including another ^T.
+
+.TP 0
+The \fBtlpasswd\fP utility accepts no options.
+.SH NOTES
+Due to the security concerns posed by a user entering his or her password
+into a running program, \fBtextlock\fP takes some precautions about
+handling this information. A static buffer is used to hold the user's
+password input, and this buffer is erased immediately after the
+input is encrypted for comparison against the actual encrypted
+password.
+
+Another security problem would arise if \fBtextlock\fP were to dump
+core immediately after the user entered their password, since the core
+file (process image) could be examined to find the password. To
+prevent this from happening, \fBtextlock\fP reroutes every signal
+which could cause a core dump to a special signal handler. This
+handler zeroes the input buffer and then exits gracefully. In most
+cases this will prevent a core dump altogether.
+.SH FILES
+.PD 0
+.TP 20
+.B /etc/passwd
+to get password and user information
+
+.PD 0
+.TP 20
+.B ~/.textlock
+to get encrypted textlock password
+
+.SH SEE ALSO
+.B xlock(1)
+
+.SH BUGS
+The \fBtlpasswd\fP program may not properly handle the input of
+control characters and escape sequences as part of a
+password. Additionally, only the first 8 characters of the password
+are significant.
+
+.SH AUTHOR
+Mark Lindner <@PACKAGE_BUGREPORT@>

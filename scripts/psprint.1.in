@@ -1,0 +1,69 @@
+.TH psprint 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+psprint \- print various types of files to a PostScript printer
+.SH SYNOPSIS
+\fBpsprint\fP \fIfile\fP ...
+.SH DESCRIPTION
+The \fBpsprint\fP script invokes various helper programs, including
+\fBgroff\fP, \fBgs\fP, \fBenscript\fP, \fBgzcat\fP, \fBzcat\fP, and \fBlpr\fP
+to format various types of files and print them to a PostScript printer.
+
+.SH FILETYPES
+The following types of files are supported:
+.TP 5
+.B *.c *.h *.cpp *.hpp *.C *.H *.cc *.cxx *.hxx *.c++ *.h++ *.m *.i *.ii *.s *.S
+C, C++, Objective-C, and Assembler source files.
+
+.TP 5
+.B *.pdf
+PDF documents.
+
+.TP 5
+.B *.pdf.gz
+Gzipped PDF documents.
+
+.TP 5
+.B *.pdf.Z
+Compressed PDF documents.
+
+.TP 5
+.B *.ps *.eps
+PostScript files.
+
+.TP 5
+.B *.ps.gz *.eps.gz
+Gzipped PostScript files.
+
+.TP 5
+.B *.ps.Z *.eps.Z
+Compressed PostScript files.
+
+.TP 5
+.B *.java
+Java source files.
+
+.TP 5
+.B *.[1-9]* *.man
+Manpages.
+
+.TP 5
+.B *.pl *.py *.sh *.csh *.*shrc
+Perl, Python, and shell scripts.
+
+.TP 5
+.B *.txt *.log *.html *.xml
+Text files, log files, HTML and XML documents.
+
+.TP 5
+.B GNUmakefile [Mm]akefile *.mak *.mk [Cc]onfigure *.m4 *.in *.ac
+Makefiles, Configure scripts, and autoconf/automake files.
+
+All other documents which appear to be ASCII text files are also 
+supported.
+
+.SH SEE ALSO
+\fBgroff(1), gs(1), enscript(1), gzcat(1), zcat(1), lpr(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

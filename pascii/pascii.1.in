@@ -1,0 +1,21 @@
+.TH pascii 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+pascii \- print ASCII codes
+.SH SYNOPSIS
+\fBpascii\fP [ \fB-h\fP ]
+.SH DESCRIPTION
+This program is a simple ASCII code lookup utility. When invoked, it
+reads characters from the terminal and displays their ASCII values in
+decimal, hexadecimal, octal, and binary. Any character can be entered,
+including those that have special meaning to the shell. To exit the
+program, press Control-C.
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.SH SEE ALSO
+\fBascii(7)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

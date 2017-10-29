@@ -1,0 +1,16 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+
+    echo
+    echo "$1 -> $x.ps"
+
+    x=`basename $1 .texi`
+
+    texi2dvi $1
+    dvips -o $x.ps $x.dvi
+    rm $x.dvi
+
+    shift;
+
+done

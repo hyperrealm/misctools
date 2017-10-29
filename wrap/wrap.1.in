@@ -1,0 +1,26 @@
+.TH wrap 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+wrap \- word-wrap text
+.SH SYNOPSIS
+\fBwrap\fP [ \fB-h\fP ] [ \fB-c\fP \fIcols\fP ]
+.SH DESCRIPTION
+The \fBwrap\fP utility is a filter that reads text from standard
+input, word wraps it, and writes the resulting text to standard
+output. The text is formatted to fit within the specified number of
+columns, wrapping words as necessary. Extraneous whitespace is also
+removed.
+.SH OPTIONS
+.TP 5
+.B -c \fIcols\fP
+Specify the number of columns, \fIcols\fP. The default value is
+78. The text is formatted to fit in this many columns. The value
+\fIcols\fP may be between 10 and 200, inclusive.
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.SH NOTES
+Long words that do not fit on a single line are split.
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

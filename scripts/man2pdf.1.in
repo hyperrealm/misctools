@@ -1,0 +1,14 @@
+.TH man2pdf 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+man2pdf \- convert manpages into PDF files
+.SH SYNOPSIS
+\fBman2pdf\fP \fIfile\fP ...
+.SH DESCRIPTION
+The \fBman2pdf\fP script invokes \fBgroff\fP and \fBgs\fP to convert the listed manpage files into PDF documents.
+
+.SH SEE ALSO
+\fBgroff(1), gs(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

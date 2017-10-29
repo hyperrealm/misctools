@@ -1,0 +1,14 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+
+    echo
+    echo "$1 -> $x.pdf"
+
+    x=`basename $1 .texi`
+
+    texi2dvi --pdf --batch $1 
+
+    shift;
+
+done

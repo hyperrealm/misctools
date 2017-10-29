@@ -1,0 +1,14 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+
+    x=`echo $1 | sed -e 's/\.[^\.]*$//' `
+
+    echo
+    echo "$1 -> $x.ps"
+
+    groff -te -man -Tps $1 > $x.ps
+
+    shift;
+
+done

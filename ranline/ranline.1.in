@@ -1,0 +1,21 @@
+.TH ranline 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+ranline \- select a line at random from a file
+.SH SYNOPSIS
+\fBranline\fP [ \fB-h\fP ] [ \fIfile\fP ]
+.SH DESCRIPTION
+The \fBranline\fP utility selects a line randomly from the specified
+\fIfile\fP, (or, if no file is specified, from standard input) and writes it
+to standard output.
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.SH NOTES
+The \fBranline\fP utility has a 1024-byte limit on line length. If it
+is used on a file with lines longer than this, or on a file that contains
+binary data, a truncated line may be returned.
+.SH AUTHORS
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

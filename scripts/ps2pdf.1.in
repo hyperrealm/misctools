@@ -1,0 +1,14 @@
+.TH ps2pdf 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+ps2pdf \- convert PostScript files intto aDF files
+.SH SYNOPSIS
+\fBps2pdf\fP \fIfile\fP ...
+.SH DESCRIPTION
+The \fBps2pdf\fP script invokes \fBgs\fP to convert the listed PostScript files into PDF documents.
+
+.SH SEE ALSO
+\fBgs(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

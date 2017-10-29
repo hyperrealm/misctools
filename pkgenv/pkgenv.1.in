@@ -1,0 +1,216 @@
+.TH pkgenv 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+pkgenv \- simple package environment manager
+.SH SYNOPSIS
+pkgenv [ -hv ] [ -p \fIpkgdir\fP ] [ -s \fIshell\fP ] { add | del | list | avail } [ \fIpackage\fP ... ]
+.SH DESCRIPTION
+
+The \fBpkgenv\fP utility automatically configures the shell
+environment for software packages via package environment descriptor
+(`.pkgenv') files. \fBpkgenv\fP is a leaner, simpler alternative to the
+\fBEnvironment Modules\fP package.
+
+A pkgenv descriptor file is a simple text file containing directives
+that describe how the shell environment should be modified for the
+corresponding software package. The following directives are available:
+
+.TP 5
+\fCadjust \fIpath\fP [ \fIpath\fP ... ]\fP
+Indicates that the default adjustments should be made to the listed
+\fIpath\fP environment variable(s). The supported path environment
+variables, and the default adjustments that are made to them, are as
+follows:
+
+.RS 5
+.TP 24
+.B PATH
+Prepend the package's `bin' directory, if it exists.
+.TP
+.B LD_LIBRARY_PATH
+Prepend the package's `lib' directory, if it exists.
+.TP
+.B  DYLD_LIBRARY_PATH
+The Mac OS X equivalent of \fBLD_LIBRARY_PATH\fP.
+.TP
+.B MANPATH
+Prepend the package's 'man' and/or `share/man' directories, whichever exist.
+.TP
+.B PKG_CONFIG_PATH
+Prepend the package's `lib/pkgconfig' directory, if it exists.
+.TP
+.B ACLOCAL_PATH
+Prepend the package's `share/aclocal' directory, if it exists.
+.P
+(The \fCadjust\fP directive cannot be used with environment variables
+other than those listed above.)
+
+For most software packages, the modifications provided by this
+directive will be sufficient. If they are not, more fine-tuned control is
+possible with the remaining directives.
+.RS -5
+.TP 5
+\fIvariable\fP \fC=\fP \fIvalue\fP
+Sets the environment variable \fIvariable\fP to the value
+\fIvalue\fP. Only variables other than the path variables supported by
+the \fCadjust\fP directive may be used; this is to prevent accidental
+clobbering of those variables.
+.TP 5
+\fIpath\fP \fC+=\fP \fIvalue\fP
+Prepends the directory \fIvalue\fP to the path environment variable
+\fIpath\fP, which must be one of the path environment variables listed
+above.
+.TP 5
+\fIpath\fP \fC.=\fP \fIvalue\fP
+Appends the directory \fIvalue\fP to the path environment variable
+\fIpath\fP, which must be one of the path environment variables listed
+above.
+
+.P
+For all three of the assignment directives (`=', `+=', and `.='),
+variable substitution is performed on \fIvalue\fP. A variable is
+referenced as `\fC${\fP\fIname\fP\fC}\fP', where \fIname\fP may be one of the
+following, or the name of any environment variable.
+
+.TP 10
+\fCroot\fP
+The root directory of the software package, for example `/pkg/gcc-3.3'.
+.TP 10
+\fCprefix\fP
+Equivalent to \fCroot\fP.
+.TP 10
+\fCname\fP
+The name of the package, for example `gcc'.
+.TP 10
+\fCversion\fP
+The version of the package, for example `3.3'.
+.P
+Any lines in the descriptor file consisting of only whitespace, or
+containing non-whitespace text that begins with a `#' character, are
+ignored.
+
+.SH OPTIONS
+The following options are recognized:
+.TP 10
+.B -h
+Display a command synopsis and copyright message and exit.
+.TP
+.B -v
+Display version information and exit.
+.TP
+.B -V
+Enable verbose mode.
+.TP
+.B -p \fIpkgroot\fP
+Specify \fIpkgroot\fP as the package root. The default package root is
+`/pkg'.
+.TP
+.B -s \fIshell\fP
+Specify \fIshell\fP as the shell for which environment statements will
+be output. Possible values are `sh', `bash', `ksh', `zsh', `csh', and
+`tcsh'.
+.SH COMMANDS
+The commands supported by the \fBpkgenv\fP utility are as follows:
+.TP 10
+\fCadd\fI
+Adds the named package(s) to the environment.
+.TP
+\fCdel\fI
+Removes the named package(s) from the environment.
+.TP
+\fClist\fI
+Prints a list of packages that are currently active in the environment.
+.TP
+\fCavail\fI
+Prints a list of available packages that match the listed names, or if
+no names are specified, a list of all available packages.
+.P
+.SH FILES
+To be used with \fBpkgenv\fP, software packages must be installed on
+the system under a common package root directory, which by default is
+`/pkg', but may be overridden via either the \fB-p\fP command line
+switch or the \fBPKGENV_ROOT\fP environment variable. Each package
+should be installed beneath the package root within its own directory,
+with a name that reflects the package name and version in the form
+\fIname\fP-\fIversion\fP, e.g., `gcc-3.3'.
+
+The descriptor files must reside in a subdirectory of the package root
+named `PKGENV'. Each descriptor file must have a name of the form
+\fIname\fP-\fIversion\fP.pkgenv, e.g., `gcc-3.3.pkgenv'.
+
+\fBpkgenv\fP writes the shell commands for modifying the environment
+into the file `.pkgenv' in the user's home directory. These must then
+be executed by the shell for the changes to take effect. This is done
+by defining a shell alias which runs \fBpkgenv\fP and then
+evaluates the contents of the resulting file.
+
+For \fBcsh/tcsh\fP the alias is:
+
+.RS 5
+\fCalias pkg 'pkgenv \\!* && eval `cat ~/.pkgenv`'\fP
+.RS -5
+
+For \fBsh/bash\fP the alias is:
+
+.RS 5
+\fCfunction pkg ()
+  { pkgenv $@ && eval "`cat "$HOME/.pkgenv"`"; }
+\fP
+.RS -5
+
+For \fBzsh\fP the alias is:
+
+.RS 5
+\fCalias pkg='pkgenv $@ && eval `cat ~/.pkgenv`'\fP
+.RS -5
+
+For \fBksh\fP the alias is:
+
+.RS 5
+\fCpkg ()
+  { pkgenv $@ && eval "`cat "$HOME/.pkgenv"`"; }
+\fP
+.RS -5
+
+.SH ENVIRONMENT VARIABLES
+\fBpkgenv\fP uses the following environment variables:
+.TP 15
+.B SHELL
+To determine the user's shell. Overridden by the \fB-s\fP switch.
+.TP
+.B PKGENV_ROOT
+The package root directory. Overridden by the \fB-p\fP switch.
+.TP
+.B PKGENV_CURRENT
+To maintain the list of currently active packages.
+
+.SH EXAMPLES
+The following example shows a possible pkgenv descriptor for Sun's
+JDK. This descriptor would be stored in a file with a name like
+\fI/pkg/PKGENV/jdk-1.5.0.pkgenv\fP.
+
+.nf
+\fCadjust PATH MANPATH
+
+LD_LIBRARY_PATH += ${root}/jre/lib/i386:${root}/jre/lib/i386/server
+LD_LIBRARY_PATH += ${root}/jre/lib/i386/native_threads
+
+JAVA_HOME = ${root}
+\fP
+.fi
+
+.SH NOTES
+The \fBaclocal\fP program does not normally recognize the
+\fBACLOCAL_PATH\fP environment variable; the \fIautomake\fP package must be
+patched to add this support. The patch is available here:
+\fIhttp://www.nabble.com/ACLOCAL_PATH-t4271240.html\fP
+
+The default installation directory for man pages, as specified by the
+GNU Coding Standards, was previously `man'; it is now `share/man'.
+
+.SH SEE ALSO
+\fBtcsh(1)\fP, \fBbash(1)\fP
+
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

@@ -1,0 +1,35 @@
+.TH bin2c 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+bin2c \- generate C source code data array from binary data
+.SH SYNOPSIS
+\fBbin2c\fP [ \fB-hls\fP ] [ \fB-i\fP \fIfile\fP ] [ \fB-o\fP \fIfile\fP ] [ \fB-n\fP \fIname\fP ]
+.SH DESCRIPTION
+The \fBbin2c\fP utility generates C source code for a binary data array from the contents of an input file (or from standard input, if no input file is specified), and writes the results to an output file (or to standard output, if no output file is specified).
+.PP
+.ft R
+.fi
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -i \fIfile\fP
+Read data from \fIfile\fP. If this switch is omitted, data is read from standard input.
+.TP 5
+.B -o \fIfile\fP
+Write the generated C source code to \fIfile\fP. If this switch is omitted, the generated C source code is written to standard output.
+.TP 5
+.B -n \fIname\fP
+Specify the \fIname\fP of the C variable name for the array. If this switch is omitted, a default name of "data" is used. If the \fB-l\fP switch is used, the generated length constant will be named "\fIname\fP_length".
+.TP 5
+.B -l
+In addition to generating the data vector, generate a \fBsize_t\fP constant for the length of the input data.
+.TP 5
+.B -s
+Prepend the "static" qualifier to the variable(s) in the generated C soruce code.
+.SH SEE ALSO
+\fBod(1)\fP
+.SH AUTHORS
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

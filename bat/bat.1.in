@@ -1,0 +1,37 @@
+.TH bat 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+bat \- binary file dump
+.SH SYNOPSIS
+bat [ -c \fIchar\fP ] [ -8h ] [ \fIfile\fP ... ]
+.SH DESCRIPTION
+The \fBbat\fP utility produces a hex dump of one or more named files,
+or, if no files are listed, of data read from standard input. Each
+line of output consists of a 32-bit hexadecimal offset (from the
+beginning of the file), followed by 16 bytes of hexadecimal data,
+followed by the same 16 bytes of data as represented by ASCII
+characters.
+
+Each file dump output begins with the name of the file and ends with
+the file's byte count.
+.SH OPTIONS
+.TP 5
+.B -c \fIchar\fP
+Display \fIchar\fP for nonprintable characters instead of the default
+dot (`.'). If \fIchar\fP is itself a nonprintable character, the
+setting is ignored.
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -8
+Output all printable characters. By default, only 7-bit printable
+characters are output.
+.SH NOTES
+For large amounts of data, pipe the output of \fBbat\fP through a
+pager such as \fBless\fP.
+.SH SEE ALSO
+\fBless(1)\fP, \fBod(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

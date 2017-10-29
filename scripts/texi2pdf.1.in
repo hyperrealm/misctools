@@ -1,0 +1,14 @@
+.TH texi2pdf 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+texi2pdf \- convert Texinfo files into PDF documents
+.SH SYNOPSIS
+\fBtexi2pdf\fP \fIfile\fP ...
+.SH DESCRIPTION
+The \fBtexi2pdf\fP script invokes \fBtexi2dvi\fP to convert the listed Texinfo files into PDF documents.
+
+.SH SEE ALSO
+\fBtexi2dvi(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

@@ -1,0 +1,37 @@
+.TH CPMOD 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.UC 4
+.SH NAME
+cpmod \- copy file permissions, ownerships, and timestamps
+.SH SYNOPSIS
+cpmod [ -h ] [ -amot ] \fIsource-file\fP \fIfile\fP [ ... ]
+.SH DESCRIPTION
+The \fBcpmod\fP utility copies access permissions (modes), ownerships,
+and/or timestamps from the \fIsource-file\fP to one or more other files. Any
+combination of the \fB-m\fP, \fB-o\fP, and \fB-t\fP switches
+(described below) may be used to specify which aspects of the file
+permissions will be copied. If none of these switches are specified,
+\fB-m\fP is assumed.
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -m
+Copy the file access permissions (mode) from the source file to the other files.
+.TP 5
+.B -o
+Copy the owner and group from the source file to the other files, if
+possible. (On some systems, only the root user can change the
+ownership of a file.)
+.TP 5
+.B -t
+Copy the last-access and last-modification times from the source file to the other files.
+.TP 5
+.B -a
+Copy all aspects of the file permissions from the source file to the other files.
+.SH SEE ALSO
+chmod(1), chown(1), stat(1)
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

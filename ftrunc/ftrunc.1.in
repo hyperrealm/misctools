@@ -1,0 +1,26 @@
+.TH ftrunc 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+ftrunc \- truncate files
+.SH SYNOPSIS
+\fBftrunc\fP [ \fB-h\fP ] [ \fB-l\fP \fIlength\fP ] \fIfile\fP [ \fIfile\fP ... ]
+.SH DESCRIPTION
+The \fBftrunc\fP utility truncates one or more ordinarly files to a
+specified length. By default, files are truncated to zero length,
+unless the \fB-l\fP switch is specified.
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -l \fIlength\fP
+Truncate files to \fIlength\fP bytes. If this switch is not specified,
+files are truncated to zero length. If \fIlength\fP is less than the
+current length of the file, the extra bytes are lost. If \fIlength\fP
+is greater than the current length of the file, the file is padded
+with zeros.
+.SH SEE ALSO
+\fBtruncate(3C)\fP, \fBls(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

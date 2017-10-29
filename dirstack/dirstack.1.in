@@ -1,0 +1,131 @@
+.TH dirstack 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+dirstack \- directory browser/selector
+.SH SYNOPSIS
+\fBdirstack\fP [ \fB-hnpq\fP ]
+.SH DESCRIPTION
+The \fBdirstack\fP utility is an interactive directory browser. It
+maintains a `stack' of directories as do the \fBpushd\fP/\fBpopd\fP
+commands of some shells, but in a visual, scrollable list.
+
+When \fBdirstack\fP is run, it optionally adds the current working
+directory to the top of the stack (if the \fB-p\fP switch is
+supplied). If the current directory is already on the stack, it moves it
+to the top of the stack. It then displays a \fIcurses\fP-based text
+interface which shows the directory stack as a scrollable list.
+
+A directory may be selected from the list with the keyboard, or--on
+those terminals that support mouse input--with the mouse. The
+following commands are recognized:
+.TP 5
+.B Down-Arrow or j
+Any of these keys will move the highlight down to the next directory
+in the list, scrolling the list if necessary.
+.TP 5
+.B Up-Arrow or k
+Any of these keys will move the highlight up to the previous directory in the list, scrolling the list if necessary.
+.TP 5
+.B Right-Arrow, n, or Next-Page
+Any of these keys will show the next screenful of directories.
+.TP 5
+.B Left-Arrow, p, or Prev-Page
+Any of these keys will show the previous screenful of directories.
+.TP 5
+.B Backspace or d
+Any of these keys will remove the currently-highlighted directory from the stack. If there is only one directory left on the stack, the command is ignored.
+.TP 5
+.B Return or Space
+Any of these keys will accept the currently selected directory and exit the program.
+.TP 5
+.B ^L
+Pressing this key will cause a full screen repaint.
+.TP 5
+.B q
+This key will exit the program without accepting the selected directory.
+.TP 0
+
+On terminals that support mouse input, the mouse can be used to scroll
+the list and select a directory. Single-clicking on a directory will
+select the directory. Double-clicking on a directory will select and
+accept the directory. Clicking on a ``--more--'' line has the same
+effect as paging up or down in the corresponding direction.
+
+\fBdirstack\fP must be integrated with the shell via shell aliases.
+
+For \fBcsh/tcsh\fP the aliases are:
+
+.RS 5
+\fCalias ds 'dirstack && cd `cat ~/.dirstacksel`'
+
+alias dspush 'dirstack -pn'
+\fP
+.RS -5
+
+For \fBbash\fP the aliases are:
+
+.RS 5
+\fCfunction ds ()
+  { dirstack && cd "`cat "$HOME/.dirstacksel"`"; }
+
+alias dspush='dirstack -pn'
+\fP
+.RS -5
+
+For \fBzsh\fP the aliases are:
+
+.RS 5
+\fCalias ds='dirstack && cd `cat ~/.dirstacksel`'
+
+alias dspush='dirstack -pn'
+\fP
+.RS -5
+
+For \fBksh\fP the aliases are:
+
+.RS 5
+\fCds ()
+  { dirstack && cd "`cat "$HOME/.dirstacksel"`"; }
+
+alias dspush='dirstack -pn'
+\fP
+.RS -5
+
+Once the alias is defined, \fBdirstack\fP is used by invoking the
+alias rather than by running the binary directly.
+
+.SH OPTIONS
+The following command line options are recognized:
+.TP 5
+.B -h
+Display a command synopsis and copyright message, and exit.
+.TP 5
+.B -n
+Do not start the browser (no stack display).
+.TP 5
+.B -p
+Push the current directory onto the stack.
+.TP 5
+.B -q
+Run quietly: do not beep the terminal in response to invalid keypresses.
+.SH NOTES
+There is presently no error checking to determine if any given
+directory actually exists and/or is accessible.
+
+\fBdirstack\fP will not run on a screen smaller than 40x10.
+.SH FILES
+.PD 0
+.TP 20
+.B ~/.dirstack
+to save the contents of the directory stack
+
+.PD 0
+.TP 20
+.B ~/.dirstacksel
+to save the currently selected directory
+
+.SH SEE ALSO
+\fBcd(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

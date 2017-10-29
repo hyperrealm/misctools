@@ -1,0 +1,39 @@
+.TH basecvt 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+basecvt \- interactive numeric base converter
+.SH SYNOPSIS
+basecvt [ -h ] [ -i \fIbase\fP ] [ -o \fIbase\fP ]
+.SH DESCRIPTION
+The \fBbasecvt\fP utility converts values from one base to
+another. Whitespace-separated values are read from standard input, and
+the converted values are written to standard output. The input base
+can be changed during conversion by entering, on its own line, the
+less-than character (`<') followed by the new base. The output base
+can be changed during conversion by entering, on its own line, the
+greater-than character (`>') followed by the new base. To display the current
+input and output bases, enter a '?' character on its own line.
+
+Bases 2 through 36, inclusive, are supported. Digits are represented
+by the decimal digits `0' through `9' and the alphabetic letters `A'
+through `Z'. For example, the value 35 in base-36 is represented as `Z'.
+
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -i \fIbase\fP
+Specify \fIbase\fP as the initial input base. The value must be between 2 and
+36, inclusive. The default is 16.
+.TP 5
+.B -o \fIbase\fP
+Specify \fIbase\fP as the initial output base. The value must be between 2 and
+36, inclusive. The default is 10.
+.SH NOTES
+Currently, only values which fit in a 32-bit signed integer can be converted.
+.SH SEE ALSO
+\fBpascii(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

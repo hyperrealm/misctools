@@ -1,0 +1,14 @@
+.TH man2ps 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+man2ps \- convert manpages into PostScript files
+.SH SYNOPSIS
+\fBman2ps\fP \fIfile\fP ...
+.SH DESCRIPTION
+The \fBman2ps\fP script invokes \fBgroff\fP to convert the listed manpage files into PostScript documents.
+
+.SH SEE ALSO
+\fBgroff(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

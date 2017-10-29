@@ -1,0 +1,15 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+
+    x=`basename $1 .ps`
+
+    echo
+    echo "$1 -> $x.pdf"
+
+    gs -dNOPAUSE -DBATCH -sDEVICE=pdfwrite -sOutputFile=$x.pdf $1
+
+    shift;
+
+done
+

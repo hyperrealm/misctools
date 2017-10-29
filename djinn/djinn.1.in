@@ -1,0 +1,90 @@
+.TH djinn 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+djinn \- UNIX daemon wrapper for Java programs
+.SH SYNOPSIS
+\fBdjinn\fP [\fB-j\fP \fIjvm\fP] [[\fB-J\fP \fIarg\fP] ...]
+[\fB-p\fP \fIclasspath\fP] [\fB-o\fP \fIlogfile\fP]
+[\fB--help --version --verbose\fP] \fIclass\fP [\fIarg\fP ...]
+.SH DESCRIPTION
+
+\fBdjinn\fP is a simple C wrapper program that allows a Java program
+to run as a daemon. It invokes the Java Virtual Machine on the named
+\fIclass\fP in a subprocess that has no standard I/O streams and no
+controlling terminal. Any arguments which follow the class name are
+passed to the \fBmain()\fP function in the class. This subprocess is
+created as the leader of its own process group, and its signal mask is
+modified to ignore the \fBSIGHUP\fP signal.
+
+The absolute path to the Java Virtual Machine may be specified on the
+command line or through the \fBJAVA\fP environment variable, with the
+command line switch taking precedence. If neither of these is
+specified, \fBdjinn\fP attempts to locate an executable named "java" in the 
+binary search path, and if successful, uses that as the JVM.
+
+After spawning the JVM, if \fBdjinn\fP detects that the JVM
+immediately exited with an error, it writes a message to that effect
+to standard error; any messages from the JVM itself will be available
+in the log file, if one has been specified.
+
+.SH OPTIONS
+.TP 5
+.B --help
+Display a command synopsis and exit.
+.TP 5
+.B --version
+Display the program's version information and exit.
+.TP 5
+.B --verbose
+Run in verbose mode.
+.TP 5
+.B -j \fIjvm\fP
+Specify the absolute path to the Java VM executable. If this switch is
+omitted, \fBdjinn\fP will check the \fBJAVA\fP environment variable,
+and if that does not contain the path of an executable file, it will
+attempt to find a program named ``java'' in the binary search path, and
+use that as the JVM.
+.TP 5
+.B -J \fIarg\fP
+Pass the argument \fIarg\fP to the Java Virtual
+Machine. If several arguments need to be passed, this switch may be repeated.
+The argument \fIarg\fP should be enclosed in quotes to prevent the
+shell from interpreting it as a switch to \fBdjinn\fP itself.
+If no occurrences of this switch appear in the argument list, \fBdjinn\fP
+will check the \fBJAVA_ARGS\fP environment variable, and if it is
+defined, will pass the arguments specified therein to the JVM.
+.TP 5
+.B -o \fIlogfile\fP
+Specify an output file; the Java VM's standard output and standard
+error streams will be redirected into \fIlogfile\fP. If this switch is 
+omitted, the JVM's output is sent to /dev/null.
+.TP 5
+.B -p \fIclasspath\fP
+Specify the \fIclasspath\fP for the Java Virtual Machine. If this switch is
+omitted, the value of the \fBCLASSPATH\fP environment variable will be
+used instead.
+.SH EXAMPLES
+.TP 5
+The following example invokes the client JVM on the class \fBcom.foo.Test\fP, passing the arguments \fI10\fP and \fIHello\fP to its \fBmain()\fP function.
+
+.B
+djinn -J "-client" -p . com.foo.Test 10 Hello
+.P
+.SH ENVIRONMENT
+.TP 15
+.B JAVA
+An absolute path to a Java Virtual Machine executable.
+.TP 15
+.B JAVA_ARGS
+Any additional arguments to pass to the JVM.
+.TP 15
+.B CLASSPATH
+The classpath for the JVM.
+.TP 15
+.B PATH
+The binary search path for locating the JVM executable.
+.SH NOTES
+\fIJava\fP is a trademark of Sun Microsystems, Inc.
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

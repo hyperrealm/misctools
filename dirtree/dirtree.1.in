@@ -1,0 +1,27 @@
+.TH dirtree 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+dirtree \- print directory tree
+.SH SYNOPSIS
+\fBdirtree\fP [ \fB-t\fP \fIwidth\fP ] [ \fB-h\fP ] [ \fIpath\fP ]
+.SH DESCRIPTION
+The \fBdirtree\fP utility prints a hierarchical list of a directory tree
+with appropriate indentation. The optional argument \fIpath\fP
+specifies which directory to list; the current directory is listed if
+\fIpath\fP is not specified or if it is not accessible.
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.TP 5
+.B -t \fIwidth\fP
+Set the tab width for indentation to \fIwidth\fP characters. The value of
+\fIwidth\fP must be between 1 and 8, inclusive. The default value is 2.
+.SH NOTES
+If an unreadable directory is encountered during the tree traversal,
+it is skipped.
+.SH SEE ALSO
+\fBls(1)\fP
+.SH AUTHOR
+.PD 0
+.TP 5
+Mark Lindner <markl@gnu.org>

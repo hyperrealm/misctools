@@ -1,0 +1,35 @@
+.TH stat 1 "@RELEASE_DATE@" "@PACKAGE_STRING@" "User Commands"
+.SH NAME
+stat \- print file information
+.SH SYNOPSIS
+\fBstat\fP [ \fB-h\fP ] \fIfile\fP [ \fIfile\fP ... ]
+.SH DESCRIPTION
+The \fBstat\fP utility prints file information as returned by
+\fBstat(2)\fP in a human-readable format.
+.PP
+The output is displayed as follows:
+.PP
+.nf
+.ft C
+  File: "/etc/motd"
+  Size: 54                       Type: Regular File
+  Mode: 0644/-rw-r--r--         Links: 1    
+   UID:     0/root             I-Node: 22722     
+   GID:     3/sys              Device: 136,0
+Access: Fri Aug  4 17:10:54 2000 (00002.02:48:20)
+Modify: Sat Jan  8 18:04:21 2000 (00211.00:54:53)
+Change: Sat Jul  1 21:59:54 2000 (00035.21:59:20)
+.ft R
+.fi
+.SH OPTIONS
+.TP 5
+.B -h
+Display a command synopsis and copyright message.
+.SH SEE ALSO
+\fBstat(2)\fP, \fBls(1)\fP
+.SH AUTHORS
+.PD 0
+.TP 5
+Rich Kulawiec, Purdue University
+.TP 5
+Mark Lindner <@PACKAGE_BUGREPORT@>

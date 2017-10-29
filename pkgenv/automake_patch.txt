@@ -1,0 +1,5 @@
+add these lines at the end of the parse_arguments() function in aclocal.in:
+
+ push @system_includes, (split ':', $ENV{'ACLOCAL_PATH'})
+   if defined $ENV{'ACLOCAL_PATH'};
+

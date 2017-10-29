@@ -1,0 +1,159 @@
+2012-10-01  Mark Lindner  <markl@neuromancer>
+
+	* aux-build/* - updated files
+	* pkgenv/pkgenv.c - fixed compiler warnings
+
+2011-06-26  Mark Lindner  <markl@neuromancer>
+
+	* bin2c/* - added new utility
+	* configure.ac, Makefile.am - added new bin2c utility, bump version
+
+2008-04-23  Mark Lindner  <markl@neuromancer>
+
+	* pfortune.1.in - fix typo in manpage
+
+2008-04-21  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c - bugfix for shell handling
+
+2008-04-20  Mark Lindner  <markl@neuromancer>
+
+	* texi2ps, texi2ps.1.in - new script
+	* pkgenv.c - bugfix: implement proper version string comparator
+	* configure.ac - bump version
+
+2007-12-10  Mark Lindner  <markl@neuromancer>
+
+	* man2ps, man2ps.1.in, ps2pdf, ps2pdf.1.in, texi2pdf, texi2pdf.1.in,
+	  man2pdf, man2pdf.1.in - modified scripts to accept multiple filename
+	  arguments
+	* <multiple> - rename 'tformat' utility to 'wrap'
+	* pkgenv.c - fix memory crash bug
+
+2007-12-08  Mark Lindner  <markl@neuromancer>
+
+	* ranline.c - bugfix
+
+2007-12-06  Mark Lindner  <markl@neuromancer>
+
+	* ranline.c, ranline.1.in - add support for reading from stdin;
+	  increase maximum supported line length to 1024
+
+2007-11-19  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c, pkgenv.1.in - added -V (verbose) flag
+	* basecvt.c, basecvt.1.in - added '?' command
+
+2007-11-11  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c - improve error messages
+	* pkgenv/automake_patch.txt - added
+
+2007-09-16  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c, pkgenv.1.in - allow environment variable references in
+	  variable substitution
+
+2007-09-05  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c, pkgenv.1.in - more bugfixes & improvements
+
+2007-09-01  Mark Lindner  <markl@neuromancer>
+
+	* pkgenv.c - add special logic to handle old vs. new MANPATH dir;
+	  don't add dirs that don't exist; bugfixes to 'del' command;
+	  add DYLD_LIBRARY_PATH support for Mac OS X
+	* *.1, *.1.in, configure.ac - generate manpages with correct version &
+	  date in header
+	* scripts/man2pdf - new script
+	* Makefile.am - add 'pdf' target
+
+2007-08-26  Mark Lindner  <markl@neuromancer>
+
+	* <multiple> - code cleanup, bugfixes
+	* pkgenv/, basecvt/ - new utilities added
+
+2007-02-08  Mark Lindner  <markl@neuromancer>
+
+	* scripts/Makefile.am - add manpages to dist
+	* pfortune.c - fix segmentation fault
+
+2006-04-17  Mark Lindner  <markl@neuromancer>
+
+	* scripts/ - added useful shell scripts
+
+2006-04-17  Mark Lindner  <markl@neuromancer>
+
+	* dirstack.c, textlock.c, configure.ac - check for both ncurses.h
+	  and ncurses/ncurses.h; fixes build error on OS X.
+
+2006-04-15  Mark Lindner  <markl@neuromancer>
+
+	* pfortune.c, pfortune.1 - partial rewrite, new -l switch
+	* pfortune - added new databases (smileys, paul_graham, fortunes)
+
+2006-04-13  Mark Lindner  <markl@neuromancer>
+
+	* <multiple> - modified build files to locate libcfl using pkg-config
+	* smileys.fdb - new fortune database added
+
+2005-08-15  Mark Lindner  <markl@neuromancer>
+
+	* dirstack.1, pascii.1 - manpage corrections
+	* README - updated
+
+2005-08-12  Mark Lindner  <markl@neuromancer>
+
+	* <multiple> - Merged in 'djinn' project.
+	* dirstack.c - Truncate paths that do not fit on one line.
+
+2004-05-12  Mark Lindner  <markl@neuromancer>
+
+	* bat.c - Added -8 switch.
+	* <multiple> - Various minor code fixes.
+
+2003-02-22  Mark Lindner  <markl@neuromancer>
+
+	* <multiple> - Reorganized package so that there is only one
+	  configure.ac (at the top level)
+	* <multiple> - Modified all source code to use CFL library (which
+	  replaces the pingutil library)
+	* stat.c - don't exit with an error if getgrnam() or getpwent() fails,
+	  but rather just display "?" for the user or group name
+	* dirstack.c - fixed bug that created repaint glitch on delete,
+	  added handling of ^L for screen refresh, and added -p switch.
+	* ranline.c - use random() instead of rand() so that (on Solaris, at
+	  least) we're not limited to a random number range of 32767.
+	* <multiple> - updated manpages
+	* pascii.c - handle DEL key and high-bit chars more gracefully
+	* textlock.c - use C_system_get_hostname() to get hostname; the old way
+	  of copying the results of uname() was non-portable, because SYS_NMLN
+	  is not defined on some systems (namely OS X).
+
+2003-01-02  Mark Lindner  <markl@neuromancer>
+
+	* <multiple> - replaced `bool_t' with `p_bool_t' to fix compilation
+	  errors when linked against the latest pingutil
+
+2002-04-17  Mark Lindner  <mark_a_lindner@yahoo.com>
+
+	* <multiple> - reorganized the entire source tree to use automake &
+	  autoconf. Damn this was a lot of work (especially since I'd never
+	  used automake before). Also made several minor fixes to make the
+	  packages compile cleanly on Linux.
+
+2002-04-14  Mark Lindner  <mark_a_lindner@yahoo.com>
+
+	* dirstack - new utility
+
+2001-10-14  Mark Lindner  <mark_a_lindner@yahoo.com>
+
+	* <multiple> - minor modifications for pingutil-2.2
+	* watcherd - new utility
+	* pfortune - new utility
+
+2001-09-14  Mark Lindner  <mark_a_lindner@yahoo.com>
+
+	* <multiple> - slight modifications to use pingutil-2.1
+	* ptree - renamed to dirtree to avoid confusion with Solaris ptree cmd
+	* dirtree - fixed segmentation fault

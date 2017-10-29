@@ -1,0 +1,152 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------------
+#   psprint - print files to a postscript printer
+#   Copyright (C) 2003-2007  Mark A Lindner
+#
+#   This file is part of misctools.
+#   
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2 of the
+#   License, or (at your option) any later version.
+#   
+#   This program is distributed in the hope that it will be useful, but
+#   WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
+#   
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, see
+#   <http://www.gnu.org/licenses/>.
+# ----------------------------------------------------------------------------
+
+# printing functions
+
+pr_man ()
+{
+    groff -te -man -Tps $1 | lpr -h
+}
+
+pr_ps_gz ()
+{
+    gzcat $1 | lpr -h
+}
+
+pr_ps_z ()
+{
+    /bin/zcat $1 | lpr -h
+}
+
+pr_ps ()
+{
+    lpr -h $1
+}
+
+pr_pdf ()
+{
+    gs -q -dNOPAUSE -dBATCH -sOutputFile=- -sDEVICE=pswrite $1 | lpr -h
+}
+
+pr_pdf_gz ()
+{
+    gzcat $1 | gs -q -dNOPAUSE -dBATCH -sOutputFile=- -sDEVICE=pswrite \
+	| lpr -h
+}
+
+pr_pdf_z ()
+{
+    /bin/zcat $1 | gs -q -dNOPAUSE -dBATCH -sOutputFile=- -sDEVICE=pswrite \
+	| lpr -h
+}
+
+pr_text ()
+{
+    enscript -2r -G -M Letter -o - $1 | lpr -h
+}
+
+pr_source ()
+{
+    enscript -2r -G -E -C -H3 -M Letter -o - $1 | lpr -h
+}
+
+# file processing loop
+
+for i in $@;
+do
+  x=`file $i | cut -d : -f 2`
+  f=`basename $i`
+
+  case $f in
+
+    *.c|*.h|*.cpp|*.C|*.H|*.cc|*.m|*.i|*.cxx|*.ii|*.s|*.S|*.hpp|*.hxx|*.c++|*.h++)
+        pr_source $i;
+	;;
+
+   *.pdf)
+	pr_pdf $i
+	;;
+
+   *.pdf.gz)
+	pr_pdf_gz $i
+	;;
+
+   *.pdf.Z)
+	pr_pdf_z $i
+	;;
+
+   *.ps|*.eps)
+	pr_ps $i
+	;;
+
+   *.ps.gz|*.eps.gz)
+	pr_ps_gz $i
+	;;
+
+   *.ps.Z|*.eps.Z)
+	pr_ps_z $i
+	;;
+
+   *.java)
+	pr_source $i
+	;;
+    
+    *.[1-9]*|*.man)
+	pr_man $i
+	;;
+
+    *.sh|*.pl|*.py|*.csh|*.*shrc)
+	pr_source $i
+	;;
+
+    *.txt|*.log|*.html|*.xml)
+	pr_text $i
+	;;
+
+    GNUmakefile|[Mm]akefile|*.mak|*.mk|[Cc]onfigure|*.m4|*.in|*.am|*.ac)
+	pr_source $i
+	;;
+
+    *)
+
+	case $x in
+
+	*ascii\ text*)
+	    pr_text $i
+	    ;;
+
+	*script*)
+	    pr_source $i
+	    ;;
+
+	*)
+	    echo "Unrecognized file type: $i";
+	    ;;
+
+	esac
+	;;
+  esac
+
+done
+
+# end of shell script
