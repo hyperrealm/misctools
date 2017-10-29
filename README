@@ -1,0 +1,55 @@
+
+MiscTools is a collection of small but useful utilities. Most of
+these are built on top of the cbase library so you will need that
+library in order to compile them. You can get cbase from:
+
+http://www.hyperrealm.com/cbase/
+
+After installing cbase, make sure the PKG_CONFIG_PATH environment
+variable contains the path to the lib/pkgconfig subdirectory of the
+cbase installation. This will allow the misctools configure script to
+find the cbase libraries and headers automatically.
+
+Some of these programs also need the ncurses library, which you can
+get from:
+
+http://www.gnu.org/
+
+-------------------------------------------------------------------------------
+
+See the INSTALL file for generic installation instructions. Typically,
+the steps required are:
+
+./configure
+make
+su root
+make install
+
+Documentation (in the form of postscript files) is in the doc/
+subdirectory. The same documentation (as unformatted manpages) exists
+in each of the utility directories (and will be installed in the
+appropriate man directory).
+
+-------------------------------------------------------------------------------
+
+I wrote `pkgenv' because of my dissatisfaction with the "Environment
+Modules" package, of which I've been a longtime user.
+
+One of the problems with Modules is its dependency on Tcl. Every time
+I wanted to set up Modules on a new machine, I was forced to download
+and install Tcl, and then tell the Modules configure script where to
+find it. Extremely irritating. I also have absolutely no interest in
+learning Tcl, so the scripting capability of Modules was lost on me.
+
+The second problem is that the modulefiles were annoying to write--I
+wanted a simpler format with less redundant information.
+
+And so pkgenv was born. It works great for me, and the binary is only
+about 12K in size. If you don't need the complexity that Modules
+offers and/or don't want to mess around with Tcl, it might work well
+for you too.
+
+-------------------------------------------------------------------------------
+
+25 Aug 2007
+Mark Lindner
