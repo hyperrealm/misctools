@@ -53,7 +53,7 @@ AC_FUNC_STAT
 AC_FUNC_UTIME_NULL
 AC_CHECK_FUNCS([utime mkfifo uname])
 
-AC_SUBST(RELEASE_DATE, '21 Jun 2011')
+AC_SUBST(RELEASE_DATE, '31 Oct 2017')
 
 AC_OUTPUT(Makefile
 	basecvt/Makefile basecvt/basecvt.1

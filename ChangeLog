@@ -1,3 +1,10 @@
+2017-10-28  Mark Lindner  <markl@avalon>
+
+	* stat/stat.c - fixed compiler warning
+	* watcherd/* - removed
+	* pfortune/* - removed
+	* configure.ac - bumped version
+
 2012-10-01  Mark Lindner  <markl@neuromancer>
 
 	* aux-build/* - updated files
