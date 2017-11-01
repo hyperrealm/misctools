@@ -122,9 +122,11 @@ int main(int argc, char **argv)
   }
 
   now = time(NULL);
-  fprintf (outf, "/* Generated from %s\n * by bin2c on %.24s\n */\n",
-           input_file ? input_file : "standard input", ctime(&now));
+  fprintf(outf, "/* Generated from %s\n * by bin2c on %.24s\n */\n\n",
+          input_file ? input_file : "standard input", ctime(&now));
 
+  fprintf(outf, "#include <stddef.h>\n\n");
+  
   if(static_vars)
     fputs("static ", outf);
 
