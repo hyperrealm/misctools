@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    bat - binary 'cat'
-   Copyright (C) 1994-2011  Mark A Lindner
+   Copyright (C) 1994-2025  Mark A Lindner
 
    This file is part of misctools.
 
@@ -32,6 +32,7 @@
 #endif /* HAVE_FCNTL_H */
 #include <ctype.h>
 #include <locale.h>
+#include <stdlib.h>
 
 #include <cbase/cbase.h>
 
@@ -43,7 +44,7 @@
 #define FILLCHAR '.'                    /* default nonprint character */
 
 #define HEADER "bat v" VERSION " - Mark Lindner"
-#define USAGE "[ -c <char> ] [ -h ] [-8] [ <file> ... ]"
+#define USAGE "[ -c <char> ] [ -hx8] [-b <base-addr>] [ <file> ... ]"
 
 #define canprint(A)                             \
   ((A) >= ' ' && (A) <= '~')
@@ -53,14 +54,16 @@
 static char nonprint = FILLCHAR;
 static int width = BYTES;
 static c_bool_t use7bit = TRUE;
+static c_bool_t mapHighASCII = FALSE;
 
 /* --- Functions --- */
 
-static void dump(int);
+static void dump(int, uint_t);
 
 int main(int argc, char **argv)
 {
   int fct = 0, ch, x;
+  uint_t base_addr = 0;
   c_bool_t errflag = FALSE;
   extern char *optarg;
   extern int optind;
@@ -70,7 +73,7 @@ int main(int argc, char **argv)
 
   C_error_init(*argv);
 
-  while((ch = getopt(argc, argv, "h8c:")) != EOF)
+  while((ch = getopt(argc, argv, "hx8c:b:")) != EOF)
     switch((char)ch)
     {
       case 'h':
@@ -86,6 +89,22 @@ int main(int argc, char **argv)
           C_error_printf("Bad fill character\n");
           C_error_printf("Defaulting to \"%c\"\n", *argv, FILLCHAR);
         }
+        break;
+
+      case 'b':
+      {
+        int base = 10;
+        
+        if(C_string_endswith(optarg, "H") || C_string_endswith(optarg, "h")) {
+          base = 16;
+        }
+        base_addr = strtoul(optarg, NULL, base);
+        break;
+      }
+
+      case 'x':
+        mapHighASCII = TRUE;
+        use7bit = TRUE;
         break;
 
       case '8':
@@ -105,7 +124,7 @@ int main(int argc, char **argv)
   fct = argc - optind;
 
   if(fct == 0)
-    dump(STDIN_FILENO);
+    dump(STDIN_FILENO, base_addr);
 
   else for(x = fct, p = &(argv[optind]); x--; p++)
   {
@@ -118,7 +137,7 @@ int main(int argc, char **argv)
     }
 
     printf("---- %s\n", *p);
-    dump(fd);
+    dump(fd, base_addr);
     close(fd);
   }
 
@@ -128,43 +147,69 @@ int main(int argc, char **argv)
 /*
  */
 
-static void dump(int fd)
+static void dump(int fd, uint_t base_addr)
 {
-  int bytes = 0, i, x;
-  uint_t count = 0, hi, lo;
+  int bytes = 0, i, col, bytes_left;
+  c_bool_t first_line = TRUE;
+  uint_t count = 0, addr = base_addr, hi, lo;
   char *b, buffer[64];
+  int start_offset = base_addr % BYTES;
+  int rcount = C_min(width, BYTES - start_offset);
 
-  while((bytes = read(fd, buffer, width)) > 0)
+  while((bytes = read(fd, buffer, rcount)) > 0)
   {
-    lo = count & 0xFFFF;
-    hi = (count >> 16) & 0xFFFF;
+    lo = addr & 0xFFFF;
+    hi = (addr >> 16) & 0xFFFF;
 
     printf("%04X-%04X: ", hi, lo);
 
-    for(i = bytes, x = 1, b = buffer; i--; b++, x++)
+    col = 0;
+    b = buffer;
+    bytes_left = bytes;
+
+    for(col = 0; col < width; ++col)
     {
-      printf("%2.2X ", (unsigned char)*b);
-      if(x == 8)
+      if((first_line && start_offset && (col < start_offset))
+         || (bytes_left == 0))
+      {
+        printf("   ");
+      }
+      else
+      {
+        printf("%02X ", (unsigned char)*b);
+        ++b;
+        --bytes_left;
+      }
+
+      if((col + 1) == (width / 2))
         printf("- ");
     }
 
-    if(x < 8)
-      printf("  ");
+    printf("| ");
 
-    if(bytes < width)
-      for(i = (width - bytes); i--; printf("   "));
-
-    putchar(' ');
+    if(first_line && start_offset)
+      printf("%*s", start_offset, " ");
+    
     for(i = bytes, b = buffer; i--; b++)
     {
+      char c = *b;
+      
       if(use7bit)
-        putchar(canprint(*b) ? *b : nonprint);
+      {
+        if(mapHighASCII && (c & 0x80))
+          c &= 0x7F;
+          
+        putchar(canprint(c) ? c : nonprint);
+      }
       else
-        putchar(isprint(*b) ? *b : nonprint);
+        putchar(isprint(c) ? c : nonprint);
     }
 
     putchar('\n');
     count += bytes;
+    addr += bytes;
+    rcount = width;
+    first_line = FALSE;
   }
 
   printf("---- %i bytes ----\n", count);

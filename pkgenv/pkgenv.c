@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    pkgenv - simple package environment manager
-   Copyright (C) 2007-2011  Mark A Lindner
+   Copyright (C) 2007-2025  Mark A Lindner
 
    This file is part of misctools.
 

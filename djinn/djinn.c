@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    djinn - UNIX daemon wrapper for Java programs
-   Copyright (C) 1998-2011  Mark Lindner
+   Copyright (C) 1998-2025  Mark Lindner
 
    This file is part of misctools.
 

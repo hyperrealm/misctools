@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    stat - get file information
-   Copyright (C) 2000-2011  Mark A Lindner
+   Copyright (C) 2000-2025  Mark A Lindner
 
    This file is part of misctools.
 

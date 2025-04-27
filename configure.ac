@@ -1,8 +1,8 @@
 
-AC_INIT(misctools, 2.6.1, markl@gnu.org)
+AC_INIT([misctools],[2.7],[markl@gnu.org])
 AC_CONFIG_AUX_DIR([aux-build])
 AM_INIT_AUTOMAKE
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 AC_PROG_MAKE_SET
 
@@ -27,10 +27,9 @@ AC_DEFUN([PKG_CHECK_MODULES_STATIC],
   PKG_CONFIG=$_save_PKG_CONFIG[]dnl
 ])
 
-PKG_CHECK_MODULES_STATIC([CBASE], [libcbase >= 1.3.4])
+PKG_CHECK_MODULES_STATIC([CBASE], [libcbase >= 1.4])
 
 dnl Checks for header files.
-AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_HEADER_MAJOR
 AC_CHECK_HEADERS([sys/time.h sys/param.h utime.h fcntl.h unistd.h ncurses.h ncurses/ncurses.h])
@@ -42,8 +41,6 @@ AC_TYPE_OFF_T
 AC_CHECK_SIZEOF(off_t)
 AC_CHECK_SIZEOF(ino_t)
 AC_TYPE_PID_T
-AC_TYPE_SIGNAL
-AC_STRUCT_ST_RDEV
 AC_STRUCT_TM
 
 dnl Checks for library functions.
@@ -53,9 +50,9 @@ AC_FUNC_STAT
 AC_FUNC_UTIME_NULL
 AC_CHECK_FUNCS([utime mkfifo uname])
 
-AC_SUBST(RELEASE_DATE, '31 Oct 2017')
+AC_SUBST(RELEASE_DATE, '26 Apr 2025')
 
-AC_OUTPUT(Makefile
+AC_CONFIG_FILES([Makefile
 	basecvt/Makefile basecvt/basecvt.1
 	bat/Makefile bat/bat.1
 	bin2c/Makefile bin2c/bin2c.1
@@ -71,4 +68,5 @@ AC_OUTPUT(Makefile
 	textlock/Makefile textlock/textlock.1
 	wrap/Makefile wrap/wrap.1
 	scripts/Makefile scripts/man2ps.1 scripts/ps2pdf.1 scripts/psprint.1
-	scripts/man2pdf.1 scripts/texi2pdf.1 scripts/texi2ps.1)
+	scripts/man2pdf.1 scripts/texi2pdf.1 scripts/texi2ps.1])
+AC_OUTPUT

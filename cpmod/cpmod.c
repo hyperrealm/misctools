@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    cpmod - copy file permissions
-   Copyright (C) 2003-2011  Mark A Lindner
+   Copyright (C) 2003-2025  Mark A Lindner
 
    This file is part of misctools.
 

@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
    pascii - get ASCII values for characters
-   Copyright (C) 1994-2011  Mark A Lindner
+   Copyright (C) 1994-2025  Mark A Lindner
 
    This file is part of misctools.
 
