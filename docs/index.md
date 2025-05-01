@@ -1,5 +1,3 @@
-## About
-
 The *misctools* package is a collection of small but useful
 utilities. Though they are small and trivial, I've found these
 programs to be indispensable. The utilities are:
