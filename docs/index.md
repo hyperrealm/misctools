@@ -84,7 +84,7 @@ Download *misctools* now! Source code and full documentation are
 included.
 
 <center>
-<a href="dist/misctools-2.6.1.tar.gz"><b>misctools-2.6.1.tar.gz</b></a>
+<a href="dist/misctools-2.7.tar.gz"><b>misctools-2.7.tar.gz</b></a>
 </center>
 
 Note that *misctools* depends on [cbase](https://hyperrealm.github.io/cbase/).
